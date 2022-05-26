@@ -61,6 +61,20 @@ vnoremap <leader>d "_d"
 "This unsets the "last search pattern" register by hitting return
 nnoremap <CR> :noh<CR><CR>
 
+set splitbelow splitright
+map <Leader>tt :vnew term<CR>
+" Remap splits navigation to just CTRL + hjkl
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
+
+" Make adjusing split sizes a bit more friendly
+noremap <silent> <C-Left> :vertical resize +3<CR>
+noremap <silent> <C-Right> :vertical resize -3<CR>
+noremap <silent> <C-Up> :resize +3<CR>
+noremap <silent> <C-Down> :resize -3<CR>
+
 " clipboard with win32yank.exe
 " in ~/bin/win32yank.exe
 " https://github.com/equalsraf/win32yank/releases {{{

@@ -3,6 +3,8 @@ set relativenumber
 set hidden
 set noerrorbells
 set tabstop=4 softtabstop=4
+set shiftwidth=4
+set expandtab
 set smartindent
 set noswapfile
 set nobackup
@@ -14,6 +16,8 @@ set signcolumn=yes
 set colorcolumn=80
 set termguicolors
 set clipboard^=unnamed,unnamedplus
+set updatetime=100
+set splitbelow splitright
 
 call plug#begin()
 
@@ -29,6 +33,14 @@ Plug 'https://github.com/vim-airline/vim-airline' " Status bar
 Plug 'tmsvg/pear-tree'
 
 Plug 'neovim/nvim-lspconfig'
+Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/cmp-buffer'
+Plug 'hrsh7th/nvim-cmp'
+Plug 'https://github.com/jose-elias-alvarez/null-ls.nvim'
+
+Plug 'L3MON4D3/LuaSnip'
+
+Plug 'airblade/vim-gitgutter'
 
 call plug#end()
 
@@ -46,7 +58,7 @@ nnoremap <leader>fh <cmd>lua require('telescope.builtin').help_tags()<cr>
 
 nnoremap <leader>n :NERDTreeFocus<CR>
 nnoremap <C-n> :NERDTree<CR>
-nnoremap <C-t> :NERDTreeToggle<CR>
+nnoremap <leader>t :NERDTreeToggle<CR>
 nnoremap <C-f> :NERDTreeFind<CR>
 "keep in register
 xnoremap <leader>p "_dP
@@ -61,7 +73,6 @@ vnoremap <leader>d "_d"
 "This unsets the "last search pattern" register by hitting return
 nnoremap <CR> :noh<CR><CR>
 
-set splitbelow splitright
 map <Leader>tt :vnew term<CR>
 " Remap splits navigation to just CTRL + hjkl
 nnoremap <C-h> <C-w>h

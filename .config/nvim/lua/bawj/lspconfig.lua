@@ -106,10 +106,14 @@ for _, lsp in ipairs(servers) do
 	end
 end
 
+if default_node_modules ~= nil then
+    local ngls_location = default_node_modules .. "/@angular/language-server/index.js" 
+end
+
 local ngls_cmd = {
 	-- "ngserver",
     "node",
-    default_node_modules .. "/@angular/language-server/index.js",
+    ngls_location,
 	"--stdio",
 	"--tsProbeLocations",
     default_node_modules,

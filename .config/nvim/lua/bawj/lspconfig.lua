@@ -6,7 +6,7 @@ local servers = { "tsserver" }
 
 -- Diagnostic settings
 vim.diagnostic.config({
-	virtual_text = false,
+	virtual_text = true,
 	signs = true,
 	update_in_insert = true,
 })
@@ -51,8 +51,8 @@ local on_attach = function(client, bufnr)
 
 	buf_set_keymap("n", "<space>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
 	buf_set_keymap("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
-	buf_set_keymap("n", "[d", "<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>", opts)
-	buf_set_keymap("n", "]d", "<cmd>lua vim.lsp.diagnostic.goto_next()<CR>", opts)
+	buf_set_keymap("n", "<space>D", "<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>", opts)
+	buf_set_keymap("n", "<space>d", "<cmd>lua vim.lsp.diagnostic.goto_next()<CR>", opts)
 	buf_set_keymap("n", "<space>q", "<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>", opts)
 	buf_set_keymap("n", "<space>f", "<cmd>lua vim.lsp.buf.format()<CR>", opts)
 
@@ -106,8 +106,10 @@ for _, lsp in ipairs(servers) do
 	end
 end
 
+local ngls_location = ""
+
 if default_node_modules ~= nil then
-    local ngls_location = default_node_modules .. "/@angular/language-server/index.js" 
+    ngls_location = default_node_modules .. "/@angular/language-server/index.js" 
 end
 
 local ngls_cmd = {

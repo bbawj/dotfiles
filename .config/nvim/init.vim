@@ -29,6 +29,8 @@ Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'p00f/nvim-ts-rainbow'
 
 Plug 'morhetz/gruvbox'
+Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
+
 Plug 'nvim-lualine/lualine.nvim'
 Plug 'kyazdani42/nvim-web-devicons'
 
@@ -55,6 +57,12 @@ call plug#end()
 
 lua require('bawj')
 
+" Nightfox
+" let g:tokyonight_style = "night"
+" let g:tokyonight_italic_functions = 1
+" let g:tokyonight_sidebars = [ "qf", "vista_kind", "terminal", "packer" ]
+"
+" colorscheme tokyonight
 colorscheme gruvbox
 
 let mapleader = " "

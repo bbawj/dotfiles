@@ -62,11 +62,15 @@ local on_attach = function(client, bufnr)
 		vim.api.nvim_command("autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()")
 	end
 	-- formatting
-	if client.server_capabilities.documentFormattingProvider then
-		vim.api.nvim_command([[augroup Format]])
-		vim.api.nvim_command([[autocmd! * <buffer>]])
-		vim.api.nvim_command([[autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_seq_sync()]])
-		vim.api.nvim_command([[augroup END]])
+	if client.supports_method("textDocument/formatting") then
+		vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
+		vim.api.nvim_create_autocmd("BufWritePre", {
+			group = augroup,
+			buffer = bufnr,
+			callback = function()
+				vim.lsp.buf.format({ bufnr = bufnr })
+			end,
+		})
 	end
 end
 
@@ -74,20 +78,45 @@ local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities)
 
 for _, lsp in ipairs(servers) do
-	nvim_lsp[lsp].setup({
-		capabilities = capabilities,
-		on_attach = on_attach,
-	})
+	local custom_cmd = {}
+
+	if lsp == "tsserver" then
+		custom_cmd = {
+			"typescript-language-server",
+			"--stdio",
+			"--tsserver-path",
+			"/home/bawj/.nvm/versions/node/v12.20.0/lib/node_modules/typescript/lib",
+		}
+	end
+
+	if next(custom_cmd) == nil then
+		nvim_lsp[lsp].setup({
+			capabilities = capabilities,
+			on_attach = on_attach,
+		})
+	else
+		nvim_lsp[lsp].setup({
+			capabilities = capabilities,
+			on_attach = on_attach,
+			cmd = custom_cmd,
+			on_new_config = function(new_config)
+				new_config.cmd = custom_cmd
+			end,
+		})
+	end
 end
 
 local ngls_cmd = {
-	"node",
-	"/home/bawj/.nvm/versions/node/v12.20.0/lib/node_modules/@angular/language-server",
+	-- "ngserver",
+    "node",
+    default_node_modules .. "/@angular/language-server/index.js",
 	"--stdio",
 	"--tsProbeLocations",
-	"/home/bawj/.nvm/versions/node/v12.20.0/lib/node_modules",
+    default_node_modules,
+	-- "/home/bawj/.nvm/versions/node/v16.15.0/lib/node_modules",
 	"--ngProbeLocations",
-	"/home/bawj/.nvm/versions/node/v12.20.0/lib/node_modules",
+    default_node_modules,
+	-- "/home/bawj/.nvm/versions/node/v16.15.0/lib/node_modules",
 	"--includeCompletionsWithSnippetText",
 	"--includeAutomaticOptionalChainCompletions",
 }
@@ -95,7 +124,7 @@ local ngls_cmd = {
 nvim_lsp.angularls.setup({
 	cmd = ngls_cmd,
 	on_attach = on_attach,
-	root_dir = util.root_pattern("angular.json"),
+	-- root_dir = util.root_pattern("angular.json"),
 	on_new_config = function(new_config)
 		new_config.cmd = ngls_cmd
 	end,

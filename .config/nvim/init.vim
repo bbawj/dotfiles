@@ -23,13 +23,17 @@ call plug#begin()
 
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
-Plug 'nvim-telescope/telescope-fzy-native.nvim'
+Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'p00f/nvim-ts-rainbow'
+
 Plug 'morhetz/gruvbox'
+Plug 'nvim-lualine/lualine.nvim'
+Plug 'kyazdani42/nvim-web-devicons'
+
 Plug 'http://github.com/tpope/vim-surround' " Surrounding ysw)
 Plug 'https://github.com/preservim/nerdtree' " NerdTree
-Plug 'https://github.com/vim-airline/vim-airline' " Status bar
 Plug 'tmsvg/pear-tree'
 
 Plug 'neovim/nvim-lspconfig'
@@ -37,10 +41,15 @@ Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/nvim-cmp'
 Plug 'https://github.com/jose-elias-alvarez/null-ls.nvim'
+Plug 'onsails/lspkind.nvim'
 
 Plug 'L3MON4D3/LuaSnip'
 
+" git integration
+Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
+
+Plug 'numToStr/Comment.nvim'
 
 call plug#end()
 
@@ -54,18 +63,19 @@ let mapleader = " "
 nnoremap <leader>ff <cmd>lua require('telescope.builtin').find_files()<cr>
 nnoremap <leader>fg <cmd>lua require('telescope.builtin').live_grep()<cr>
 nnoremap <leader>fb <cmd>lua require('telescope.builtin').buffers()<cr>
-nnoremap <leader>fh <cmd>lua require('telescope.builtin').help_tags()<cr>
+nnoremap <leader>fh :lua require('bawj.telescope').search_dotfiles({ hidden = true })<CR>
 
+" NERDTree mappings
 nnoremap <leader>n :NERDTreeFocus<CR>
-nnoremap <C-n> :NERDTree<CR>
-nnoremap <leader>t :NERDTreeToggle<CR>
+nnoremap <C-n> :NERDTreeToggle<CR>
 nnoremap <C-f> :NERDTreeFind<CR>
+
+" GitGutter mappings
+nmap <leader>j <Plug>(GitGutterNextHunk)
+nmap <leader>k <Plug>(GitGutterPrevHunk)
+
 "keep in register
 xnoremap <leader>p "_dP
-
-nnoremap <leader>y "+y
-vnoremap <leader>y "+y
-nmap <leader>Y "+Y
 
 nnoremap <leader>d "_d
 vnoremap <leader>d "_d"
@@ -73,7 +83,10 @@ vnoremap <leader>d "_d"
 "This unsets the "last search pattern" register by hitting return
 nnoremap <CR> :noh<CR><CR>
 
-map <Leader>tt :vnew term<CR>
+" terminal remaps
+map <Leader>tt :vs term://zsh<CR>
+tnoremap <leader><Esc> <C-\><C-n>
+
 " Remap splits navigation to just CTRL + hjkl
 nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j

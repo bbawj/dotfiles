@@ -130,3 +130,10 @@ export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
 #PATH to dotnet tools
 export PATH="$PATH:$HOME/.dotnet/tools/"
+
+#Path to Android SDK
+export ANDROID_SDK_ROOT=$HOME/android_studio
+export PATH=$PATH:$ANDROID_SDK_ROOT/emulator
+export PATH=$PATH:$ANDROID_SDK_ROOT/platform-tools
+
+export PATH="$PATH:$HOME/.nvm/versions/node/v12.20.0/lib/node_modules/@angular/language-server"

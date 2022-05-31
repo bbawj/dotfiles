@@ -28,15 +28,19 @@ Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'p00f/nvim-ts-rainbow'
 
+" Themes
 Plug 'morhetz/gruvbox'
 Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
+Plug 'EdenEast/nightfox.nvim'
 
 Plug 'nvim-lualine/lualine.nvim'
 Plug 'kyazdani42/nvim-web-devicons'
 
 Plug 'http://github.com/tpope/vim-surround' " Surrounding ysw)
-Plug 'https://github.com/preservim/nerdtree' " NerdTree
 Plug 'tmsvg/pear-tree'
+
+" Plug 'https://github.com/preservim/nerdtree' " NerdTree
+Plug 'kyazdani42/nvim-tree.lua'
 
 Plug 'neovim/nvim-lspconfig'
 Plug 'hrsh7th/cmp-nvim-lsp'
@@ -64,7 +68,8 @@ lua require('bawj')
 " let g:tokyonight_sidebars = [ "qf", "vista_kind", "terminal", "packer" ]
 "
 " colorscheme tokyonight
-colorscheme gruvbox
+" colorscheme gruvbox
+colorscheme nordfox
 
 let mapleader = " "
 
@@ -75,9 +80,12 @@ nnoremap <leader>fb <cmd>lua require('telescope.builtin').buffers()<cr>
 nnoremap <leader>fh :lua require('bawj.telescope').search_dotfiles({ hidden = true })<CR>
 
 " NERDTree mappings
-nnoremap <leader>n :NERDTreeFocus<CR>
-nnoremap <C-n> :NERDTreeToggle<CR>
-nnoremap <C-f> :NERDTreeFind<CR>
+" nnoremap <leader>n :NERDTreeFocus<CR>
+" nnoremap <C-n> :NERDTreeToggle<CR>
+" nnoremap <C-f> :NERDTreeFind<CR>
+nnoremap <C-n> :NvimTreeToggle<CR>
+nnoremap <C-f> :NvimTreeFindFile<CR>
+nnoremap <leader>r :NvimTreeRefresh<CR>
 
 " GitGutter mappings
 nmap <leader>j <Plug>(GitGutterNextHunk)

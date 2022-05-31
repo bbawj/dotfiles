@@ -43,6 +43,7 @@ Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/nvim-cmp'
 Plug 'https://github.com/jose-elias-alvarez/null-ls.nvim'
+Plug 'folke/trouble.nvim'
 Plug 'onsails/lspkind.nvim'
 
 Plug 'L3MON4D3/LuaSnip'
@@ -81,6 +82,14 @@ nnoremap <C-f> :NERDTreeFind<CR>
 " GitGutter mappings
 nmap <leader>j <Plug>(GitGutterNextHunk)
 nmap <leader>k <Plug>(GitGutterPrevHunk)
+
+" Troube mappings
+nnoremap <leader>xx <cmd>TroubleToggle<cr>
+nnoremap <leader>xw <cmd>TroubleToggle workspace_diagnostics<cr>
+nnoremap <leader>xd <cmd>TroubleToggle document_diagnostics<cr>
+nnoremap <leader>xq <cmd>TroubleToggle quickfix<cr>
+nnoremap <leader>xl <cmd>TroubleToggle loclist<cr>
+nnoremap gR <cmd>TroubleToggle lsp_references<cr>
 
 "keep in register
 xnoremap <leader>p "_dP

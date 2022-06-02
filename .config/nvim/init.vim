@@ -18,6 +18,10 @@ set termguicolors
 set clipboard^=unnamed,unnamedplus
 set updatetime=100
 set splitbelow splitright
+set mouse=a
+set cursorline
+set ignorecase
+set nowrap
 
 call plug#begin()
 
@@ -29,8 +33,8 @@ Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'p00f/nvim-ts-rainbow'
 
 " Themes
-Plug 'morhetz/gruvbox'
-Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
+" Plug 'morhetz/gruvbox'
+" Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
 Plug 'EdenEast/nightfox.nvim'
 
 Plug 'nvim-lualine/lualine.nvim'
@@ -91,7 +95,7 @@ nnoremap <leader>r :NvimTreeRefresh<CR>
 nmap <leader>j <Plug>(GitGutterNextHunk)
 nmap <leader>k <Plug>(GitGutterPrevHunk)
 
-" Troube mappings
+" Trouble mappings
 nnoremap <leader>xx <cmd>TroubleToggle<cr>
 nnoremap <leader>xw <cmd>TroubleToggle workspace_diagnostics<cr>
 nnoremap <leader>xd <cmd>TroubleToggle document_diagnostics<cr>
@@ -123,6 +127,10 @@ noremap <silent> <C-Left> :vertical resize +3<CR>
 noremap <silent> <C-Right> :vertical resize -3<CR>
 noremap <silent> <C-Up> :resize +3<CR>
 noremap <silent> <C-Down> :resize -3<CR>
+
+" Tab navigation
+nmap <S-Tab> :tabprev<Return>
+nmap <Tab> :tabnext<Return>
 
 " clipboard with win32yank.exe
 " in ~/bin/win32yank.exe

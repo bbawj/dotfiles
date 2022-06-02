@@ -2,7 +2,7 @@ local vim = vim
 local uv = vim.loop
 local nvim_lsp = require("lspconfig")
 local util = require("lspconfig.util")
-local servers = { "tsserver" }
+local servers = { "tsserver", "csharp_ls" }
 
 -- Diagnostic settings
 vim.diagnostic.config({
@@ -13,7 +13,9 @@ vim.diagnostic.config({
 
 local function get_node_modules(root_dir)
 	-- util.find_node_modules_ancestor()
-	local root_node = root_dir .. "/node_modules"
+	-- local root_node = root_dir .. "/node_modules"
+    local search_path = root_dir .. "/**2"
+    local root_node = root_dir .. "/" .. vim.fn.finddir("node_modules", search_path)
 	local stats = uv.fs_stat(root_node)
 	if stats == nil then
 		return nil
@@ -72,6 +74,10 @@ local on_attach = function(client, bufnr)
 			end,
 		})
 	end
+	-- use null-ls instead of tsserver
+	if client.name == "tsserver" then
+		client.server_capabilities.document_formatting = false
+	end
 end
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -109,19 +115,19 @@ end
 local ngls_location = ""
 
 if default_node_modules ~= nil then
-    ngls_location = default_node_modules .. "/@angular/language-server/index.js" 
+	ngls_location = default_node_modules .. "/@angular/language-server/index.js"
 end
 
 local ngls_cmd = {
 	-- "ngserver",
-    "node",
-    ngls_location,
+	"node",
+	ngls_location,
 	"--stdio",
 	"--tsProbeLocations",
-    default_node_modules,
+	default_node_modules,
 	-- "/home/bawj/.nvm/versions/node/v16.15.0/lib/node_modules",
 	"--ngProbeLocations",
-    default_node_modules,
+	default_node_modules,
 	-- "/home/bawj/.nvm/versions/node/v16.15.0/lib/node_modules",
 	"--includeCompletionsWithSnippetText",
 	"--includeAutomaticOptionalChainCompletions",

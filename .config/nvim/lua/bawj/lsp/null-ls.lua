@@ -8,11 +8,19 @@ local formatting = null_ls.builtins.formatting
 -- https://github.com/jose-elias-alvarez/null-ls.nvim/tree/main/lua/null-ls/builtins/diagnostics
 local diagnostics = null_ls.builtins.diagnostics
 
-null_ls.setup({
-	debug = false,
-	sources = {
+local sources = {
 			--formatting.eslint_d
             formatting.prettierd,
             formatting.stylua
-	},
-})
+	}
+
+local M = {}
+M.setup = function(on_attach)
+        null_ls.setup({
+            -- debug = true,
+            sources = sources,
+            on_attach = on_attach,
+        })
+end
+
+return M

@@ -22,6 +22,7 @@ set mouse=a
 set cursorline
 set ignorecase
 set nowrap
+set lazyredraw
 
 call plug#begin()
 
@@ -58,7 +59,7 @@ Plug 'L3MON4D3/LuaSnip'
 
 " git integration
 Plug 'tpope/vim-fugitive'
-Plug 'airblade/vim-gitgutter'
+Plug 'lewis6991/gitsigns.nvim'
 
 Plug 'numToStr/Comment.nvim'
 
@@ -110,7 +111,7 @@ nnoremap <leader>d "_d
 vnoremap <leader>d "_d"
 
 "This unsets the "last search pattern" register by hitting return
-nnoremap <CR> :noh<CR><CR>
+nnoremap <CR> :noh<CR>
 
 " terminal remaps
 map <Leader>tt :vs term://zsh<CR>

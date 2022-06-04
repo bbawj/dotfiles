@@ -14,8 +14,8 @@ vim.diagnostic.config({
 local function get_node_modules(root_dir)
 	-- util.find_node_modules_ancestor()
 	-- local root_node = root_dir .. "/node_modules"
-    local search_path = root_dir .. "/**2"
-    local root_node = root_dir .. "/" .. vim.fn.finddir("node_modules", search_path)
+	local search_path = root_dir .. "/**2"
+	local root_node = root_dir .. "/" .. vim.fn.finddir("node_modules", search_path)
 	local stats = uv.fs_stat(root_node)
 	if stats == nil then
 		return nil
@@ -25,14 +25,27 @@ local function get_node_modules(root_dir)
 end
 
 local default_node_modules = get_node_modules(vim.fn.getcwd())
-
+local buf_command = function(bufnr, name, fn, opts)
+	vim.api.nvim_buf_create_user_command(bufnr, name, fn, opts or {})
+end
 -- Mappings
 local opts = { noremap = true, silent = true }
 vim.api.nvim_set_keymap("n", "<space>e", "<cmd>lua vim.diagnostic.open_float()<CR>", opts)
 vim.api.nvim_set_keymap("n", "[d", "<cmd>lua vim.diagnostic.goto_prev()<CR>", opts)
 vim.api.nvim_set_keymap("n", "]d", "<cmd>lua vim.diagnostic.goto_next()<CR>", opts)
 vim.api.nvim_set_keymap("n", "<space>q", "<cmd>lua vim.diagnostic.setloclist()<CR>", opts)
-vim.api.nvim_set_keymap("n", "<space>f", "<cmd>lua vim.lsp.buf.format()<CR>", opts)
+
+local lsp_formatting = function(bufnr)
+	vim.lsp.buf.format({
+		bufnr = bufnr,
+		filter = function(clients)
+			return vim.tbl_filter(function(client)
+				return client.name == "null-ls"
+			end, clients)
+		end,
+	})
+end
+local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
 
 local on_attach = function(client, bufnr)
 	local function buf_set_keymap(...)
@@ -45,18 +58,12 @@ local on_attach = function(client, bufnr)
 	buf_set_keymap("n", "gh", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
 	buf_set_keymap("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
 	buf_set_keymap("n", "<C-k>", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
-	buf_set_keymap("n", "<space>wa", "<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>", opts)
-	buf_set_keymap("n", "<space>wr", "<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>", opts)
-	buf_set_keymap("n", "<space>wl", "<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>", opts)
-	buf_set_keymap("n", "<space>D", "<cmd>lua vim.lsp.buf.type_definition()<CR>", opts)
-	buf_set_keymap("n", "<space>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
 
 	buf_set_keymap("n", "<space>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
 	buf_set_keymap("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
 	buf_set_keymap("n", "<space>D", "<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>", opts)
 	buf_set_keymap("n", "<space>d", "<cmd>lua vim.lsp.diagnostic.goto_next()<CR>", opts)
 	buf_set_keymap("n", "<space>q", "<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>", opts)
-	buf_set_keymap("n", "<space>f", "<cmd>lua vim.lsp.buf.format()<CR>", opts)
 
 	if client.server_capabilities.document_highlight then
 		vim.api.nvim_command("autocmd CursorHold  <buffer> lua vim.lsp.buf.document_highlight()")
@@ -65,23 +72,22 @@ local on_attach = function(client, bufnr)
 	end
 	-- formatting
 	if client.supports_method("textDocument/formatting") then
+		buf_command(bufnr, "LspFormatting", function()
+			lsp_formatting(bufnr)
+		end)
 		vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
 		vim.api.nvim_create_autocmd("BufWritePre", {
 			group = augroup,
 			buffer = bufnr,
-			callback = function()
-				vim.lsp.buf.format({ bufnr = bufnr })
-			end,
+			command = "LspFormatting",
 		})
-	end
-	-- use null-ls instead of tsserver
-	if client.name == "tsserver" then
-		client.server_capabilities.document_formatting = false
 	end
 end
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities)
+
+require("bawj.lsp.null-ls").setup(on_attach, capabilities)
 
 for _, lsp in ipairs(servers) do
 	local custom_cmd = {}

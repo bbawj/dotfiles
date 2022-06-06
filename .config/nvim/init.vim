@@ -130,8 +130,8 @@ noremap <silent> <C-Up> :resize +3<CR>
 noremap <silent> <C-Down> :resize -3<CR>
 
 " Tab navigation
-nmap <S-Tab> :tabprev<Return>
-nmap <Tab> :tabnext<Return>
+nmap <C-S-Tab> :tabprev<Return>
+nmap <C-Tab> :tabnext<Return>
 
 " clipboard with win32yank.exe
 " in ~/bin/win32yank.exe

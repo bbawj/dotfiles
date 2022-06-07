@@ -34,8 +34,6 @@ Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'p00f/nvim-ts-rainbow'
 
 " Themes
-" Plug 'morhetz/gruvbox'
-" Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
 Plug 'EdenEast/nightfox.nvim'
 
 Plug 'nvim-lualine/lualine.nvim'
@@ -44,24 +42,27 @@ Plug 'kyazdani42/nvim-web-devicons'
 Plug 'http://github.com/tpope/vim-surround' " Surrounding ysw)
 Plug 'tmsvg/pear-tree'
 
-" Plug 'https://github.com/preservim/nerdtree' " NerdTree
 Plug 'kyazdani42/nvim-tree.lua'
 
 Plug 'neovim/nvim-lspconfig'
-Plug 'hrsh7th/cmp-nvim-lsp'
-Plug 'hrsh7th/cmp-buffer'
-Plug 'hrsh7th/nvim-cmp'
 Plug 'https://github.com/jose-elias-alvarez/null-ls.nvim'
 Plug 'folke/trouble.nvim'
+
+Plug 'hrsh7th/nvim-cmp'
+Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/cmp-buffer'
+Plug 'saadparwaiz1/cmp_luasnip'
 Plug 'onsails/lspkind.nvim'
 
 Plug 'L3MON4D3/LuaSnip'
+Plug 'rafamadriz/friendly-snippets'
 
 " git integration
 Plug 'tpope/vim-fugitive'
 Plug 'lewis6991/gitsigns.nvim'
 
 Plug 'numToStr/Comment.nvim'
+Plug 'JoosepAlviste/nvim-ts-context-commentstring'
 
 call plug#end()
 

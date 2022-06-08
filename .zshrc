@@ -108,6 +108,7 @@ alias vim="nvim"
 alias v=vim
 
 bindkey -v
+VI_MODE_SET_CURSOR=true
 MODE_INDICATOR="%F{white}+%f"
 INSERT_MODE_INDICATOR="%F{yellow}+%f"
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
@@ -136,8 +137,13 @@ export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export PATH="$PATH:$HOME/.dotnet/tools/"
 
 #Path to Android SDK
-export ANDROID_SDK_ROOT=$HOME/android_studio
-export PATH=$PATH:$ANDROID_SDK_ROOT/emulator
-export PATH=$PATH:$ANDROID_SDK_ROOT/platform-tools
+export ANDROID_HOME=$HOME/Android
+export PATH="$ANDROID_HOME/emulator:$ANDROID_HOME/tools:$ANDROID_HOME/tools/bin:$ANDROID_HOME/cmdline-tools/latest:$ANDROID_HOME/cmdline-tools/latest/bin:$ANDROID_HOME/platform-tools:$PATH"
+export WSL_HOST=$(tail -1 /etc/resolv.conf | cut -d' ' -f2)
+export ADB_SERVER_SOCKET=tcp:$WSL_HOST:5037
+export ADB_TRACE=adb
+export EXPO_DEBUG=1
+export ANDROID_SERIAL=emulator-5554
+export REACT_NATIVE_PACKAGER_HOSTNAME=$(ip addr show eth0 | grep -oP '(?<=inet\s)\d+(\.\d+){3}')
 
 export PATH="$PATH:$HOME/.nvm/versions/node/v12.20.0/lib/node_modules/@angular/language-server"

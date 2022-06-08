@@ -41,6 +41,8 @@ Plug 'kyazdani42/nvim-web-devicons'
 
 Plug 'http://github.com/tpope/vim-surround' " Surrounding ysw)
 Plug 'tmsvg/pear-tree'
+Plug 'lukas-reineke/indent-blankline.nvim'
+Plug 'romgrk/barbar.nvim'
 
 Plug 'kyazdani42/nvim-tree.lua'
 

@@ -1,6 +1,6 @@
 require("bufferline").setup({
 	-- Enable/disable animations
-	animation = true,
+	animation = false,
 
 	-- Enable/disable auto-hiding the tab bar when there is a single buffer
 	auto_hide = false,
@@ -65,11 +65,27 @@ require("bufferline").setup({
 	no_name_title = nil,
 })
 
+local map = vim.api.nvim_set_keymap
+local opts = { noremap = true, silent = true }
+
+-- Move to previous/next
+map("n", "<A-,>", ":BufferPrevious<CR>", opts)
+map("n", "<A-.>", ":BufferNext<CR>", opts)
+-- Re-order to previous/next
+map("n", "<C-A-<>", ":BufferMovePrevious<CR>", opts)
+map("n", "<C-A->>", " :BufferMoveNext<CR>", opts)
+-- Pin/unpin buffer
+map("n", "<A-P>", ":BufferPin<CR>", opts)
+-- Close buffer
+map("n", "<A-c>", ":BufferClose<CR>", opts)
+-- Magic buffer-picking mode
+map("n", "<A-p>", ":BufferPick<CR>", opts)
+
 local nvim_tree_events = require("nvim-tree.events")
 local bufferline_state = require("bufferline.state")
 
 nvim_tree_events.on_tree_open(function()
-	bufferline_state.set_offset(31, "File Tree")
+	bufferline_state.set_offset(30, "File Tree")
 end)
 
 nvim_tree_events.on_tree_close(function()

@@ -147,3 +147,9 @@ export ANDROID_SERIAL=emulator-5554
 export REACT_NATIVE_PACKAGER_HOSTNAME=$(ip addr show eth0 | grep -oP '(?<=inet\s)\d+(\.\d+){3}')
 
 export PATH="$PATH:$HOME/.nvm/versions/node/v12.20.0/lib/node_modules/@angular/language-server"
+
+# Generated for envman. Do not edit.
+[ -s "$HOME/.config/envman/load.sh" ] && source "$HOME/.config/envman/load.sh"
+
+# Zoxide
+eval "$(zoxide init zsh)"

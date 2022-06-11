@@ -32,17 +32,19 @@ Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'p00f/nvim-ts-rainbow'
+Plug 'SmiteshP/nvim-gps'
 
 " Themes
 Plug 'EdenEast/nightfox.nvim'
 
-Plug 'nvim-lualine/lualine.nvim'
+" Status Lines
 Plug 'kyazdani42/nvim-web-devicons'
+Plug 'nvim-lualine/lualine.nvim'
+Plug 'lukas-reineke/indent-blankline.nvim'
+Plug 'akinsho/bufferline.nvim', { 'tag': 'v2.*' }
 
 Plug 'http://github.com/tpope/vim-surround' " Surrounding ysw)
 Plug 'tmsvg/pear-tree'
-Plug 'lukas-reineke/indent-blankline.nvim'
-Plug 'romgrk/barbar.nvim'
 
 Plug 'kyazdani42/nvim-tree.lua'
 

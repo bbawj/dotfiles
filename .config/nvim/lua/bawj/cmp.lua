@@ -2,9 +2,6 @@ local cmp = require("cmp")
 local source_mapping = {
 	buffer = "[Buffer]",
 	nvim_lsp = "[LSP]",
-	nvim_lua = "[Lua]",
-	cmp_tabnine = "[TN]",
-	path = "[Path]",
 }
 local lspkind = require("lspkind")
 local snip_status_ok, luasnip = pcall(require, "luasnip")

@@ -21,6 +21,7 @@ set splitbelow splitright
 set mouse=a
 set cursorline
 set ignorecase
+set smartcase
 set nowrap
 set lazyredraw
 
@@ -44,7 +45,8 @@ Plug 'lukas-reineke/indent-blankline.nvim'
 Plug 'akinsho/bufferline.nvim', { 'tag': 'v2.*' }
 
 Plug 'http://github.com/tpope/vim-surround' " Surrounding ysw)
-Plug 'tmsvg/pear-tree'
+Plug 'windwp/nvim-autopairs'
+Plug 'windwp/nvim-ts-autotag'
 
 Plug 'kyazdani42/nvim-tree.lua'
 
@@ -109,6 +111,13 @@ nnoremap <leader>xq <cmd>TroubleToggle quickfix<cr>
 nnoremap <leader>xl <cmd>TroubleToggle loclist<cr>
 nnoremap gR <cmd>TroubleToggle lsp_references<cr>
 
+" Escape the escape key
+inoremap jk <ESC>
+inoremap kj <ESC>
+
+"Save behavior
+nnoremap <C-s> :w<CR>
+
 "keep in register
 xnoremap <leader>p "_dP
 
@@ -135,8 +144,8 @@ noremap <silent> <C-Up> :resize +3<CR>
 noremap <silent> <C-Down> :resize -3<CR>
 
 " Tab navigation
-nmap <C-S-Tab> :tabprev<Return>
-nmap <C-Tab> :tabnext<Return>
+nnoremap <C-S-Tab> :tabprev<Return>
+nnoremap <C-Tab> :tabnext<Return>
 
 " clipboard with win32yank.exe
 " in ~/bin/win32yank.exe

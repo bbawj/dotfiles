@@ -2,7 +2,7 @@ local vim = vim
 local uv = vim.loop
 local nvim_lsp = require("lspconfig")
 local util = require("lspconfig.util")
-local servers = { "tsserver", "csharp_ls" }
+local servers = { "tsserver", "csharp_ls", "html", "cssls" }
 
 -- Diagnostic settings
 vim.diagnostic.config({
@@ -86,20 +86,21 @@ end
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities)
+capabilities.textDocument.completion.completionItem.snippetSupport = true
 
 require("bawj.lsp.null-ls").setup(on_attach, capabilities)
 
 for _, lsp in ipairs(servers) do
 	local custom_cmd = {}
 
-	if lsp == "tsserver" then
-		custom_cmd = {
-			"typescript-language-server",
-			"--stdio",
-			"--tsserver-path",
-			"/home/bawj/.nvm/versions/node/v12.20.0/lib/node_modules/typescript/lib",
-		}
-	end
+	-- if lsp == "tsserver" then
+	-- 	custom_cmd = {
+	-- 		"typescript-language-server",
+	-- 		"--stdio",
+	-- 		"--tsserver-path",
+	-- 		"/home/bawj/.nvm/versions/node/v12.20.0/lib/node_modules/typescript/lib",
+	-- 	}
+	-- end
 
 	if next(custom_cmd) == nil then
 		nvim_lsp[lsp].setup({

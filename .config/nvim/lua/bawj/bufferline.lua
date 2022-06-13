@@ -83,9 +83,11 @@ require("bufferline").setup({
 		always_show_bufferline = true,
 		sort_by = function(buffer_a, buffer_b)
 			-- add custom logic
-			local mod_a = vim.loop.fs_stat(buffer_a.path).mtime.sec
-			local mod_b = vim.loop.fs_stat(buffer_b.path).mtime.sec
-			return mod_a > mod_b
+			if buffer_a.path and buffer_b.path then
+				local mod_a = vim.loop.fs_stat(buffer_a.path).mtime.sec
+				local mod_b = vim.loop.fs_stat(buffer_b.path).mtime.sec
+				return mod_a > mod_b
+			end
 		end,
 	},
 })

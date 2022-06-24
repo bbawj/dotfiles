@@ -27,16 +27,19 @@ set lazyredraw
 
 call plug#begin()
 
+" Telescope
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 
+" Treesitter
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'p00f/nvim-ts-rainbow'
 Plug 'SmiteshP/nvim-gps'
 
 " Themes
 Plug 'EdenEast/nightfox.nvim'
+Plug 'xiyaowong/nvim-transparent'
 
 " Status Lines
 Plug 'kyazdani42/nvim-web-devicons'
@@ -44,43 +47,48 @@ Plug 'nvim-lualine/lualine.nvim'
 Plug 'lukas-reineke/indent-blankline.nvim'
 Plug 'akinsho/bufferline.nvim', { 'tag': 'v2.*' }
 
+" Misc
 Plug 'http://github.com/tpope/vim-surround' " Surrounding ysw)
 Plug 'windwp/nvim-autopairs'
 Plug 'windwp/nvim-ts-autotag'
 
+" File explorer
 Plug 'kyazdani42/nvim-tree.lua'
 
+" LSP related
+Plug 'williamboman/nvim-lsp-installer'
 Plug 'neovim/nvim-lspconfig'
 Plug 'https://github.com/jose-elias-alvarez/null-ls.nvim'
 Plug 'folke/trouble.nvim'
 
+" Completion
 Plug 'hrsh7th/nvim-cmp'
 Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/cmp-buffer'
 Plug 'saadparwaiz1/cmp_luasnip'
 Plug 'onsails/lspkind.nvim'
 
+" Snippets
 Plug 'L3MON4D3/LuaSnip'
 Plug 'rafamadriz/friendly-snippets'
 
-" git integration
+" Git integration
 Plug 'tpope/vim-fugitive'
 Plug 'lewis6991/gitsigns.nvim'
 
+" Comments
 Plug 'numToStr/Comment.nvim'
 Plug 'JoosepAlviste/nvim-ts-context-commentstring'
+
+" Debugger
+Plug 'mfussenegger/nvim-dap'
+Plug 'rcarriga/nvim-dap-ui'
 
 call plug#end()
 
 lua require('bawj')
 
 " Nightfox
-" let g:tokyonight_style = "night"
-" let g:tokyonight_italic_functions = 1
-" let g:tokyonight_sidebars = [ "qf", "vista_kind", "terminal", "packer" ]
-"
-" colorscheme tokyonight
-" colorscheme gruvbox
 colorscheme nordfox
 
 let mapleader = " "
@@ -92,9 +100,6 @@ nnoremap <leader>fb <cmd>lua require('telescope.builtin').buffers()<cr>
 nnoremap <leader>fh :lua require('bawj.telescope').search_dotfiles({ hidden = true })<CR>
 
 " NERDTree mappings
-" nnoremap <leader>n :NERDTreeFocus<CR>
-" nnoremap <C-n> :NERDTreeToggle<CR>
-" nnoremap <C-f> :NERDTreeFind<CR>
 nnoremap <C-n> :NvimTreeToggle<CR>
 nnoremap <C-f> :NvimTreeFindFile<CR>
 nnoremap <leader>r :NvimTreeRefresh<CR>
@@ -121,8 +126,8 @@ nnoremap <C-s> :w<CR>
 "keep in register
 xnoremap <leader>p "_dP
 
-nnoremap <leader>d "_d
-vnoremap <leader>d "_d"
+" nnoremap <leader>d "_d
+" vnoremap <leader>d "_d"
 
 "This unsets the "last search pattern" register by hitting return
 nnoremap <CR> :noh<CR>

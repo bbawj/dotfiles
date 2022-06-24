@@ -2,7 +2,8 @@ local vim = vim
 local uv = vim.loop
 local nvim_lsp = require("lspconfig")
 local util = require("lspconfig.util")
-local servers = { "tsserver", "csharp_ls", "html", "cssls" }
+local servers = { "emmet_ls", "angularls", "tsserver", "csharp_ls", "html", "cssls", "sumneko_lua" }
+require("nvim-lsp-installer").setup({})
 
 -- Diagnostic settings
 vim.diagnostic.config({
@@ -61,9 +62,6 @@ local on_attach = function(client, bufnr)
 
 	buf_set_keymap("n", "<space>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
 	buf_set_keymap("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
-	buf_set_keymap("n", "<space>D", "<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>", opts)
-	buf_set_keymap("n", "<space>d", "<cmd>lua vim.lsp.diagnostic.goto_next()<CR>", opts)
-	buf_set_keymap("n", "<space>q", "<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>", opts)
 
 	if client.server_capabilities.document_highlight then
 		vim.api.nvim_command("autocmd CursorHold  <buffer> lua vim.lsp.buf.document_highlight()")
@@ -102,7 +100,12 @@ for _, lsp in ipairs(servers) do
 	-- 	}
 	-- end
 
-	if next(custom_cmd) == nil then
+	if lsp == "emmet_ls" then
+		nvim_lsp[lsp].setup({
+			capabilities = capabilities,
+			filetypes = { "html", "typescriptreact", "javascriptreact", "css", "sass", "scss", "less" },
+		})
+	elseif next(custom_cmd) == nil then
 		nvim_lsp[lsp].setup({
 			capabilities = capabilities,
 			on_attach = on_attach,
@@ -125,26 +128,26 @@ if default_node_modules ~= nil then
 	ngls_location = default_node_modules .. "/@angular/language-server/index.js"
 end
 
-local ngls_cmd = {
-	-- "ngserver",
-	"node",
-	ngls_location,
-	"--stdio",
-	"--tsProbeLocations",
-	default_node_modules,
-	-- "/home/bawj/.nvm/versions/node/v16.15.0/lib/node_modules",
-	"--ngProbeLocations",
-	default_node_modules,
-	-- "/home/bawj/.nvm/versions/node/v16.15.0/lib/node_modules",
-	"--includeCompletionsWithSnippetText",
-	"--includeAutomaticOptionalChainCompletions",
-}
-
-nvim_lsp.angularls.setup({
-	cmd = ngls_cmd,
-	on_attach = on_attach,
-	-- root_dir = util.root_pattern("angular.json"),
-	on_new_config = function(new_config)
-		new_config.cmd = ngls_cmd
-	end,
-})
+-- local ngls_cmd = {
+-- 	-- "ngserver",
+-- 	"node",
+-- 	ngls_location,
+-- 	"--stdio",
+-- 	"--tsProbeLocations",
+-- 	default_node_modules,
+-- 	-- "/home/bawj/.nvm/versions/node/v16.15.0/lib/node_modules",
+-- 	"--ngProbeLocations",
+-- 	default_node_modules,
+-- 	-- "/home/bawj/.nvm/versions/node/v16.15.0/lib/node_modules",
+-- 	"--includeCompletionsWithSnippetText",
+-- 	"--includeAutomaticOptionalChainCompletions",
+-- }
+--
+-- nvim_lsp.angularls.setup({
+-- 	cmd = ngls_cmd,
+-- 	on_attach = on_attach,
+-- 	-- root_dir = util.root_pattern("angular.json"),
+-- 	on_new_config = function(new_config)
+-- 		new_config.cmd = ngls_cmd
+-- 	end,
+-- })

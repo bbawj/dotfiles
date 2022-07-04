@@ -2,8 +2,8 @@ set nu
 set relativenumber
 set hidden
 set noerrorbells
-set tabstop=4 softtabstop=4
-set shiftwidth=4
+set tabstop=2 softtabstop=2
+set shiftwidth=2
 set expandtab
 set smartindent
 set noswapfile
@@ -26,6 +26,8 @@ set nowrap
 set lazyredraw
 
 call plug#begin()
+
+Plug 'lewis6991/impatient.nvim'
 
 " Telescope
 Plug 'nvim-lua/plenary.nvim'
@@ -66,6 +68,7 @@ Plug 'hrsh7th/nvim-cmp'
 Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/cmp-buffer'
 Plug 'saadparwaiz1/cmp_luasnip'
+Plug 'hrsh7th/cmp-nvim-lsp-signature-help'
 Plug 'onsails/lspkind.nvim'
 
 " Snippets
@@ -98,6 +101,9 @@ nnoremap <leader>ff <cmd>lua require('telescope.builtin').find_files()<cr>
 nnoremap <leader>fg <cmd>lua require('telescope.builtin').live_grep()<cr>
 nnoremap <leader>fb <cmd>lua require('telescope.builtin').buffers()<cr>
 nnoremap <leader>fh :lua require('bawj.telescope').search_dotfiles({ hidden = true })<CR>
+nnoremap <leader>fs <cmd>lua require('telescope.builtin').git_status()<cr>
+nnoremap <leader>fd <cmd>lua require('telescope.builtin').diagnostics()<cr>
+nnoremap <leader>fr <cmd>lua require('telescope.builtin').lsp_references()<cr>
 
 " NERDTree mappings
 nnoremap <C-n> :NvimTreeToggle<CR>
@@ -122,6 +128,7 @@ inoremap kj <ESC>
 
 "Save behavior
 nnoremap <C-s> :w<CR>
+inoremap <C-s> <C-O>:w<CR>
 
 "keep in register
 xnoremap <leader>p "_dP

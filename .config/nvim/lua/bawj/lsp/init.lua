@@ -2,7 +2,7 @@ local vim = vim
 local uv = vim.loop
 local nvim_lsp = require("lspconfig")
 local util = require("lspconfig.util")
-local servers = { "emmet_ls", "angularls", "tsserver", "csharp_ls", "html", "cssls", "sumneko_lua" }
+local servers = { "eslint", "emmet_ls", "angularls", "tsserver", "csharp_ls", "html", "cssls", "sumneko_lua" }
 require("nvim-lsp-installer").setup({})
 
 -- Diagnostic settings
@@ -49,19 +49,17 @@ end
 local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
 
 local on_attach = function(client, bufnr)
-	local function buf_set_keymap(...)
-		vim.api.nvim_buf_set_keymap(bufnr, ...)
-	end
+	local buf_opts = { noremap = true, silent = true, buffer = true }
 
 	-- See `:help vim.lsp.*` for documentation on any of the below functions
-	buf_set_keymap("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", opts)
-	buf_set_keymap("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
-	buf_set_keymap("n", "gh", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
-	buf_set_keymap("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
-	buf_set_keymap("n", "<C-k>", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
-
-	buf_set_keymap("n", "<space>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
-	buf_set_keymap("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
+	vim.keymap.set("n", "gD", vim.lsp.buf.declaration, buf_opts)
+	vim.keymap.set("n", "gd", vim.lsp.buf.definition, buf_opts)
+	vim.keymap.set("n", "gh", vim.lsp.buf.hover, buf_opts)
+	vim.keymap.set("n", "gi", vim.lsp.buf.implementation, buf_opts)
+	vim.keymap.set({ "n", "i" }, "<C-k>", vim.lsp.buf.signature_help, buf_opts)
+	vim.keymap.set("n", "<space>ca", vim.lsp.buf.code_action, buf_opts)
+	vim.keymap.set("n", "<space>r", vim.lsp.buf.rename, buf_opts)
+	vim.keymap.set("n", "gr", vim.lsp.buf.references, buf_opts)
 
 	if client.server_capabilities.document_highlight then
 		vim.api.nvim_command("autocmd CursorHold  <buffer> lua vim.lsp.buf.document_highlight()")

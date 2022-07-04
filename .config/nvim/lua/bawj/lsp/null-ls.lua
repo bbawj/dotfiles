@@ -9,18 +9,19 @@ local formatting = null_ls.builtins.formatting
 local diagnostics = null_ls.builtins.diagnostics
 
 local sources = {
-			--formatting.eslint_d
-            formatting.prettierd,
-            formatting.stylua
-	}
+	--formatting.eslint_d
+	formatting.prettierd,
+	formatting.stylua,
+	formatting.uncrustify,
+}
 
 local M = {}
 M.setup = function(on_attach)
-        null_ls.setup({
-            -- debug = true,
-            sources = sources,
-            on_attach = on_attach,
-        })
+	null_ls.setup({
+		-- debug = true,
+		sources = sources,
+		on_attach = on_attach,
+	})
 end
 
 return M

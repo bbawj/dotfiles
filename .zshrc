@@ -155,3 +155,7 @@ export PATH="$PATH:$HOME/.nvm/versions/node/v12.20.0/lib/node_modules/@angular/l
 
 # Zoxide
 eval "$(zoxide init zsh)"
+
+# set DISPLAY to use X terminal in WSL
+# in WSL2 the localhost and network interfaces are not the same than windows
+export DISPLAY=$(cd /mnt/c && route.exe print | grep 0.0.0.0 | head -1 | awk '{print $4}'):0.0

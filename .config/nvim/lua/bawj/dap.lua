@@ -10,26 +10,50 @@ dap.adapters.chrome = {
 	command = "node",
 	args = { adapters_path .. "vscode-chrome-debug/out/src/chromeDebug.js" },
 }
-dap.configurations.typescript = {
-	name = "Debug with Firefox",
-	type = "firefox",
-	request = "launch",
-	reAttach = true,
-	url = "http://localhost:3000",
-	webRoot = "${workspaceFolder}",
-	firefoxExecutable = "/mnt/c/Program Files/Mozilla Firefox",
+dap.adapters.coreclr = {
+	type = "executable",
+	command = "/usr/local/netcoredbg",
+	args = { "--interpreter=vscode", "--launch-profile=Scoot.IBE.Api" },
 }
--- dap.configurations.javascriptreact = {
+dap.configurations.cs = {
+	{
+		type = "coreclr",
+		name = "launch - netcoredbg",
+		request = "launch",
+		program = vim.fn.getcwd() .. "/ibe-api/Scoot.IBE.Api/bin/Debug/netcoreapp3.1/Scoot.IBE.Api.dll",
+		-- program = function()
+		-- 	return vim.ui.input({ prompt = "Path to DLL: " }, function(input)
+		-- 		local path = vim.fn.getcwd() .. "/ibe-api/Scoot.IBE.Api/bin/Debug/netcoreapp3.1/" .. input
+		-- 		print("test")
+		-- 		print(path)
+		-- 		return path
+		-- 	end)
+		-- end,
+	},
+}
+-- dap.configurations.typescript = {
 -- 	{
 -- 		name = "Debug with Firefox",
 -- 		type = "firefox",
 -- 		request = "launch",
 -- 		reAttach = true,
 -- 		url = "http://localhost:3000",
--- 		webRoot = "${workspaceFolder}",
--- 		firefoxExecutable = "/mnt/c/Program Files/Mozilla Firefox",
+-- 		webRoot = "${workspaceFolder}/ibe-web",
+-- 		firefoxExecutable = "/usr/bin/firefox",
 -- 	},
 -- }
+dap.configurations.typescript = {
+	{
+		type = "chrome",
+		request = "attach",
+		program = "${file}",
+		cwd = vim.fn.getcwd(),
+		sourceMaps = true,
+		protocol = "inspector",
+		port = 9222,
+		webRoot = "${workspaceFolder}",
+	},
+}
 dap.configurations.javascriptreact = { -- change this to javascript if needed
 	{
 		type = "chrome",

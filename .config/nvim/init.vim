@@ -53,6 +53,7 @@ Plug 'akinsho/bufferline.nvim', { 'tag': 'v2.*' }
 Plug 'http://github.com/tpope/vim-surround' " Surrounding ysw)
 Plug 'windwp/nvim-autopairs'
 Plug 'windwp/nvim-ts-autotag'
+Plug 'j-hui/fidget.nvim'
 
 " File explorer
 Plug 'kyazdani42/nvim-tree.lua'

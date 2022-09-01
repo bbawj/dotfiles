@@ -159,3 +159,4 @@ eval "$(zoxide init zsh)"
 # set DISPLAY to use X terminal in WSL
 # in WSL2 the localhost and network interfaces are not the same than windows
 export DISPLAY=$(cd /mnt/c && route.exe print | grep 0.0.0.0 | head -1 | awk '{print $4}'):0.0
+export BROWSER='/mnt/c/Program Files (x86)/Google/Chrome/Application/chrome.exe'

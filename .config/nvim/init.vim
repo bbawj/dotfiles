@@ -38,6 +38,7 @@ Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'p00f/nvim-ts-rainbow'
 Plug 'SmiteshP/nvim-gps'
+Plug 'nvim-treesitter/nvim-treesitter-context'
 
 " Themes
 Plug 'EdenEast/nightfox.nvim'
@@ -161,6 +162,9 @@ noremap <silent> <C-Down> :resize -3<CR>
 nnoremap <C-S-Tab> :tabprev<Return>
 nnoremap <C-Tab> :tabnext<Return>
 
+" Move and center
+nnoremap <C-d> <C-d>zz
+nnoremap <C-u> <C-u>zz
 " clipboard with win32yank.exe
 " in ~/bin/win32yank.exe
 " https://github.com/equalsraf/win32yank/releases {{{

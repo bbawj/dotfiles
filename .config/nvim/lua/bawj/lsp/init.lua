@@ -2,7 +2,17 @@ local vim = vim
 local uv = vim.loop
 local nvim_lsp = require("lspconfig")
 local util = require("lspconfig.util")
-local servers = { "eslint", "emmet_ls", "angularls", "tsserver", "csharp_ls", "html", "cssls", "sumneko_lua" }
+local servers = {
+	"eslint",
+	"emmet_ls",
+	"angularls",
+	"tsserver",
+	"csharp_ls",
+	"html",
+	"cssls",
+	"sumneko_lua",
+	"pyright",
+}
 require("nvim-lsp-installer").setup({})
 
 -- Diagnostic settings
@@ -56,8 +66,9 @@ local on_attach = function(client, bufnr)
 	vim.keymap.set("n", "gd", vim.lsp.buf.definition, buf_opts)
 	vim.keymap.set("n", "gh", vim.lsp.buf.hover, buf_opts)
 	vim.keymap.set("n", "gi", vim.lsp.buf.implementation, buf_opts)
-	vim.keymap.set({ "n", "i" }, "K", vim.lsp.buf.signature_help, buf_opts)
-	buf_set_keymap("n", "<space>td", vim.lsp.buf.type_definition, opts)
+	vim.keymap.set("n", "K", vim.lsp.buf.signature_help, buf_opts)
+	vim.keymap.set("i", "<M-k>", vim.lsp.buf.signature_help, buf_opts)
+	vim.keymap.set("n", "<space>gd", vim.lsp.buf.type_definition, opts)
 	vim.keymap.set("n", "<space>ca", vim.lsp.buf.code_action, buf_opts)
 	vim.keymap.set("n", "<space>r", vim.lsp.buf.rename, buf_opts)
 	vim.keymap.set("n", "gr", vim.lsp.buf.references, buf_opts)

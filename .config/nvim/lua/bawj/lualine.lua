@@ -1,4 +1,4 @@
-local gps = require("nvim-gps")
+local gps = require("nvim-navic")
 local function getFilePath()
 	return vim.fn.fnamemodify(vim.fn.expand("%"), ":~:.")
 end

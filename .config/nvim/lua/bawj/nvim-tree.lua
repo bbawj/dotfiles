@@ -28,3 +28,10 @@ require("nvim-tree").setup({
 		},
 	},
 })
+
+local Remap = require("bawj.keymap")
+local nnoremap = Remap.nnoremap
+-- " NERDTree mappings
+nnoremap("<C-n>", "<cmd> NvimTreeToggle<CR>")
+nnoremap("<C-f>", "<cmd> NvimTreeFindFile<CR>")
+nnoremap("<leader>r", "<cmd> NvimTreeRefresh<CR>")

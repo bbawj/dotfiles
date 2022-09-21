@@ -75,7 +75,8 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git zsh-autosuggestions vi-mode tmux)
+zstyle :omz:plugins:ssh-agent identities id_ed25519 
+plugins=(git zsh-autosuggestions vi-mode tmux ssh-agent)
 ZSH_TMUX_AUTOSTART=true
 source $ZSH/oh-my-zsh.sh
 
@@ -118,7 +119,7 @@ INSERT_MODE_INDICATOR="%F{yellow}+%f"
 
 # Turn off error bells
 unsetopt BEEP
-alias config='/usr/bin/git --git-dir=/home/bawj/dotfiles/ --work-tree=/home/bawj'
+alias config='/usr/bin/git --git-dir=/home/bawj/.cfg/ --work-tree=/home/bawj'
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm

@@ -35,6 +35,14 @@ telescope.setup({
 -- To get fzf loaded and working with telescope, you need to call
 -- load_extension, somewhere after setup function:
 telescope.load_extension("fzf")
+vim.keymap.set("n", "<leader>ff", require('telescope.builtin').find_files)
+vim.keymap.set("n", "<leader>fg", require('telescope.builtin').live_grep)
+vim.keymap.set("n", "<leader>fb", require('telescope.builtin').buffers)
+vim.keymap.set("n", "<leader>fs", require('telescope.builtin').git_status)
+-- vim.keymap.set("n", "<leader>fh", require('bawj.telescope').search_dotfiles({ hidden = true }))
+vim.keymap.set("n", "<leader>fs", require('telescope.builtin').git_status)
+vim.keymap.set("n", "<leader>fd", require('telescope.builtin').diagnostics)
+vim.keymap.set("n", "<leader>fr", require('telescope.builtin').lsp_references)
 
 local M = {}
 

@@ -12,6 +12,7 @@ local servers = {
 	"cssls",
 	"sumneko_lua",
 	"pyright",
+	"gopls",
 }
 require("nvim-lsp-installer").setup({})
 
@@ -48,12 +49,11 @@ vim.api.nvim_set_keymap("n", "<space>q", "<cmd>lua vim.diagnostic.setloclist()<C
 
 local lsp_formatting = function(bufnr)
 	vim.lsp.buf.format({
-		bufnr = bufnr,
-		filter = function(clients)
-			return vim.tbl_filter(function(client)
-				return client.name == "null-ls"
-			end, clients)
+		filter = function(client)
+			-- apply whatever logic you want (in this example, we'll only use null-ls)
+			return client.name == "null-ls"
 		end,
+		bufnr = bufnr,
 	})
 end
 local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
@@ -66,8 +66,7 @@ local on_attach = function(client, bufnr)
 	vim.keymap.set("n", "gd", vim.lsp.buf.definition, buf_opts)
 	vim.keymap.set("n", "gh", vim.lsp.buf.hover, buf_opts)
 	vim.keymap.set("n", "gi", vim.lsp.buf.implementation, buf_opts)
-	vim.keymap.set("n", "K", vim.lsp.buf.signature_help, buf_opts)
-	vim.keymap.set("i", "<M-k>", vim.lsp.buf.signature_help, buf_opts)
+	vim.keymap.set({ "n", "i" }, "<M-k>", vim.lsp.buf.signature_help, buf_opts)
 	vim.keymap.set("n", "<space>gd", vim.lsp.buf.type_definition, opts)
 	vim.keymap.set("n", "<space>ca", vim.lsp.buf.code_action, buf_opts)
 	vim.keymap.set("n", "<space>r", vim.lsp.buf.rename, buf_opts)
@@ -80,14 +79,13 @@ local on_attach = function(client, bufnr)
 	end
 	-- formatting
 	if client.supports_method("textDocument/formatting") then
-		buf_command(bufnr, "LspFormatting", function()
-			lsp_formatting(bufnr)
-		end)
 		vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
 		vim.api.nvim_create_autocmd("BufWritePre", {
 			group = augroup,
 			buffer = bufnr,
-			command = "LspFormatting",
+			callback = function()
+				lsp_formatting(bufnr)
+			end,
 		})
 	end
 end
@@ -96,7 +94,7 @@ local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities)
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 
-require("bawj.lsp.null-ls").setup(on_attach, capabilities)
+require("bawj.lsp.null-ls").setup(on_attach)
 
 for _, lsp in ipairs(servers) do
 	local custom_cmd = {}

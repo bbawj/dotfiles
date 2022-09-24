@@ -9,7 +9,7 @@ _G.__luacache_config = {
 	},
 }
 require("bawj.plugins")
--- require("impatient")
+require("impatient")
 require("bawj.lsp")
 require("bawj.cmp")
 require("bawj.treesitter")
@@ -25,4 +25,5 @@ require("bawj.luasnips")
 require("bawj.autopairs")
 require("bawj.transparent")
 require("bawj.dap")
+require("bawj.go_nvim")
 require("fidget").setup({})

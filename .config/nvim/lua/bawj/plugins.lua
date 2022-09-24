@@ -84,4 +84,8 @@ use 'JoosepAlviste/nvim-ts-context-commentstring'
 -- " Debugger
 use 'mfussenegger/nvim-dap'
 use 'rcarriga/nvim-dap-ui'
+use 'theHamsta/nvim-dap-virtual-text'
+-- GO
+use 'ray-x/go.nvim'
+use 'ray-x/guihua.lua' -- recommanded if need floating window support
 end)

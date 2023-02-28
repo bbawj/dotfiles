@@ -56,10 +56,12 @@ use 'j-hui/fidget.nvim'
 use 'kyazdani42/nvim-tree.lua'
 
 -- " LSP related
+use 'williamboman/mason.nvim'
 use 'williamboman/nvim-lsp-installer'
 use 'neovim/nvim-lspconfig'
 use 'jose-elias-alvarez/null-ls.nvim'
 use 'folke/trouble.nvim'
+use 'mfussenegger/nvim-jdtls'
 
 -- " Completion
 use 'hrsh7th/nvim-cmp'

@@ -13,6 +13,8 @@ local sources = {
 	formatting.prettierd,
 	formatting.stylua,
 	formatting.uncrustify,
+	formatting.clang_format,
+	formatting.rustfmt,
 }
 
 local M = {}

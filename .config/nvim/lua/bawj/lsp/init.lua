@@ -13,8 +13,11 @@ local servers = {
 	"sumneko_lua",
 	"pyright",
 	"gopls",
+	"clangd",
+  "rust_analyzer"
+	-- "jdtls",
 }
-require("nvim-lsp-installer").setup({})
+require("mason").setup()
 
 -- Diagnostic settings
 vim.diagnostic.config({

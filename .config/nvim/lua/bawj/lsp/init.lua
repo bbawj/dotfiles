@@ -14,7 +14,8 @@ local servers = {
 	"pyright",
 	"gopls",
 	"clangd",
-  "rust_analyzer"
+  "rust_analyzer",
+  "tsserver"
 	-- "jdtls",
 }
 require("mason").setup()

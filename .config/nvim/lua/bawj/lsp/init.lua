@@ -10,7 +10,7 @@ local servers = {
 	"csharp_ls",
 	"html",
 	"cssls",
-	"sumneko_lua",
+	"lua_ls",
 	"pyright",
 	"gopls",
 	"clangd",
@@ -68,13 +68,13 @@ local on_attach = function(client, bufnr)
 	-- See `:help vim.lsp.*` for documentation on any of the below functions
 	vim.keymap.set("n", "gD", vim.lsp.buf.declaration, buf_opts)
 	vim.keymap.set("n", "gd", vim.lsp.buf.definition, buf_opts)
-	vim.keymap.set("n", "gh", vim.lsp.buf.hover, buf_opts)
+	vim.keymap.set("n", "<space>h", vim.lsp.buf.hover, buf_opts)
 	vim.keymap.set("n", "gi", vim.lsp.buf.implementation, buf_opts)
 	vim.keymap.set({ "n", "i" }, "<M-k>", vim.lsp.buf.signature_help, buf_opts)
 	vim.keymap.set("n", "<space>gd", vim.lsp.buf.type_definition, opts)
 	vim.keymap.set("n", "<space>ca", vim.lsp.buf.code_action, buf_opts)
 	vim.keymap.set("n", "<space>r", vim.lsp.buf.rename, buf_opts)
-	vim.keymap.set("n", "gr", vim.lsp.buf.references, buf_opts)
+	-- vim.keymap.set("n", "gr", vim.lsp.buf.references, buf_opts)
 
 	if client.server_capabilities.document_highlight then
 		vim.api.nvim_command("autocmd CursorHold  <buffer> lua vim.lsp.buf.document_highlight()")

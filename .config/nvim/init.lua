@@ -80,5 +80,7 @@ nnoremap("<C-u>", "<C-u>zz")
 nnoremap("n", "nzzzv")
 nnoremap("N", "Nzzzv")
 
+nnoremap("K", "<nop>")
+
 require("bawj")
 

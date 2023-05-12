@@ -37,57 +37,58 @@ return require('packer').startup(function(use)
   end}
   use 'xiyaowong/nvim-transparent'
 
--- " Status Lines
-use 'kyazdani42/nvim-web-devicons'
-use 'nvim-lualine/lualine.nvim'
-use 'lukas-reineke/indent-blankline.nvim'
-use {'akinsho/bufferline.nvim', tag = "v2.*", requires = 'kyazdani42/nvim-web-devicons'}
+  -- " Status Lines
+  use 'kyazdani42/nvim-web-devicons'
+  use 'nvim-lualine/lualine.nvim'
+  use 'lukas-reineke/indent-blankline.nvim'
+  use {'akinsho/bufferline.nvim', tag = "v2.*", requires = 'kyazdani42/nvim-web-devicons'}
 
--- " Misc
-use 'http://github.com/tpope/vim-surround'
-use {
-	"windwp/nvim-autopairs",
+  -- " Misc
+  use 'http://github.com/tpope/vim-surround'
+  use {
+    "windwp/nvim-autopairs",
     config = function() require("nvim-autopairs").setup {} end
-}
-use 'windwp/nvim-ts-autotag'
-use 'j-hui/fidget.nvim'
+  }
+  use 'windwp/nvim-ts-autotag'
+  use 'j-hui/fidget.nvim'
 
--- " File explorer
-use 'kyazdani42/nvim-tree.lua'
+  -- " File explorer
+  use 'kyazdani42/nvim-tree.lua'
 
--- " LSP related
-use 'williamboman/mason.nvim'
-use 'williamboman/nvim-lsp-installer'
-use 'neovim/nvim-lspconfig'
-use 'jose-elias-alvarez/null-ls.nvim'
-use 'folke/trouble.nvim'
-use 'mfussenegger/nvim-jdtls'
+  -- " LSP related
+  use 'williamboman/mason.nvim'
+  use 'williamboman/nvim-lsp-installer'
+  use 'neovim/nvim-lspconfig'
+  use 'jose-elias-alvarez/null-ls.nvim'
+  use 'folke/trouble.nvim'
 
--- " Completion
-use 'hrsh7th/nvim-cmp'
-use 'hrsh7th/cmp-nvim-lsp'
-use 'hrsh7th/cmp-buffer'
-use 'saadparwaiz1/cmp_luasnip'
-use 'hrsh7th/cmp-nvim-lsp-signature-help'
-use 'onsails/lspkind.nvim'
+  -- " Completion
+  use 'hrsh7th/nvim-cmp'
+  use 'hrsh7th/cmp-nvim-lsp'
+  use 'hrsh7th/cmp-buffer'
+  use 'saadparwaiz1/cmp_luasnip'
+  use 'hrsh7th/cmp-nvim-lsp-signature-help'
+  use 'onsails/lspkind.nvim'
 
--- " Snippets
-use 'L3MON4D3/LuaSnip'
-use 'rafamadriz/friendly-snippets'
+  -- " Snippets
+  use 'L3MON4D3/LuaSnip'
+  use 'rafamadriz/friendly-snippets'
 
--- " Git integration
-use 'tpope/vim-fugitive'
-use 'lewis6991/gitsigns.nvim'
+  -- " Git integration
+  use 'tpope/vim-fugitive'
+  use 'lewis6991/gitsigns.nvim'
 
--- " Comments
-use 'numToStr/Comment.nvim'
-use 'JoosepAlviste/nvim-ts-context-commentstring'
+  -- " Comments
+  use 'numToStr/Comment.nvim'
+  use 'JoosepAlviste/nvim-ts-context-commentstring'
 
--- " Debugger
-use 'mfussenegger/nvim-dap'
-use 'rcarriga/nvim-dap-ui'
-use 'theHamsta/nvim-dap-virtual-text'
--- GO
-use 'ray-x/go.nvim'
-use 'ray-x/guihua.lua' -- recommanded if need floating window support
+  -- " Debugger
+  use 'mfussenegger/nvim-dap'
+  use 'rcarriga/nvim-dap-ui'
+  use 'theHamsta/nvim-dap-virtual-text'
+  -- GO
+  use 'ray-x/go.nvim'
+  use 'ray-x/guihua.lua' -- recommanded if need floating window support
+  -- JAVA
+  use 'mfussenegger/nvim-jdtls'
 end)

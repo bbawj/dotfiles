@@ -100,3 +100,11 @@ map("n", "<A-P>", ":BufferLineTogglePin<CR>", opts)
 map("n", "<A-c>", ":BufferLinePickClose<CR>", opts)
 -- Magic buffer-picking mode
 map("n", "<A-p>", ":BufferLinePick<CR>", opts)
+
+-- Make bufferline transparent
+vim.g.transparent_groups = vim.list_extend(
+  vim.g.transparent_groups or {},
+  vim.tbl_map(function(v)
+    return v.hl_group
+  end, vim.tbl_values(require('bufferline.config').highlights))
+)

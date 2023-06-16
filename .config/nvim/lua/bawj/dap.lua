@@ -96,6 +96,33 @@ dap.configurations.javascriptreact = { -- change this to javascript if needed
 		webRoot = "${workspaceFolder}",
 	},
 }
+dap.adapters.codelldb = {
+  type = 'server',
+  port = "${port}",
+  executable = {
+    -- CHANGE THIS to your path!
+    command = '/home/bawj/.local/share/nvim/mason/bin/codelldb',
+    args = {"--port", "${port}"},
+
+    -- On windows you may have to uncomment this:
+    -- detached = false,
+  }
+}
+dap.configurations.rust = {
+  {
+    name = "Launch file",
+    type = "codelldb",
+    request = "launch",
+    cargo = {
+      args = {"run", "--", "script"}
+    },
+    program = vim.fn.getcwd() .. "/target/debug/rclox",
+    cwd = '${workspaceFolder}',
+    stopOnEntry = false,
+    args = {"script"}
+  },
+}
+
 -- Keybinds
 local opts = { noremap = true, silent = true }
 vim.api.nvim_set_keymap("n", "<space>db", "<cmd>lua require'dap'.toggle_breakpoint()<CR>", opts)

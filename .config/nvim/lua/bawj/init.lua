@@ -1,15 +1,4 @@
-_G.__luacache_config = {
-	chunks = {
-		enable = true,
-		path = vim.fn.stdpath("cache") .. "/luacache_chunks",
-	},
-	modpaths = {
-		enable = true,
-		path = vim.fn.stdpath("cache") .. "/luacache_modpaths",
-	},
-}
 require("bawj.plugins")
-require("impatient")
 require("bawj.lsp")
 require("bawj.cmp")
 require("bawj.treesitter")
@@ -22,8 +11,6 @@ require("bawj.gitsigns")
 require("bawj.blankline")
 require("bawj.bufferline")
 require("bawj.luasnips")
-require("bawj.autopairs")
-require("bawj.transparent")
-require("bawj.dap")
-require("bawj.go_nvim")
+-- require("bawj.dap")
+-- require("bawj.go_nvim")
 require("fidget").setup({})

@@ -44,7 +44,6 @@ return require('packer').startup(function(use)
   -- " Status Lines
   use 'kyazdani42/nvim-web-devicons'
   use 'nvim-lualine/lualine.nvim'
-  use 'lukas-reineke/indent-blankline.nvim'
   use {'akinsho/bufferline.nvim', tag = "v2.*", requires = 'kyazdani42/nvim-web-devicons'}
 
   -- " Misc
@@ -95,4 +94,6 @@ return require('packer').startup(function(use)
   -- use 'ray-x/guihua.lua' -- recommanded if need floating window support
   -- JAVA
   -- use 'mfussenegger/nvim-jdtls'
+
+  use 'lervag/vimtex'
 end)

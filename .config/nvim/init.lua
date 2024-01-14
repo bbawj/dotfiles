@@ -28,21 +28,22 @@ vim.opt.smartcase = true
 vim.opt.wrap = false
 vim.opt.lazyredraw = true
 vim.opt.clipboard="unnamed,unnamedplus"
+vim.opt.guicursor="a:blinkwait700-blinkoff400-blinkon250,i:ver25-iCursor"
 -- " clipboard with win32yank.exe
 -- " in ~/bin/win32yank.exe
 -- " https://github.com/equalsraf/win32yank/releases {{{
-vim.g.clipboard = {
-  name = "win32yank-wsl",
-  copy = {
-    ["+"] = "win32yank.exe -i --crlf",
-    ["*"] = "win32yank.exe -i --crlf"
-  },
-  paste = {
-    ["+"] = "win32yank.exe -o --lf",
-    ["*"] = "win32yank.exe -o --lf"
-  },
-  cache_enabled = false,
-}
+-- vim.g.clipboard = {
+--   name = "win32yank-wsl",
+--   copy = {
+--     ["+"] = "win32yank.exe -i --crlf",
+--     ["*"] = "win32yank.exe -i --crlf"
+--   },
+--   paste = {
+--     ["+"] = "win32yank.exe -o --lf",
+--     ["*"] = "win32yank.exe -o --lf"
+--   },
+--   cache_enabled = false,
+-- }
 
 local Remap = require("bawj.keymap")
 local nnoremap = Remap.nnoremap

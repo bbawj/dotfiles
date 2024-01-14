@@ -13,7 +13,9 @@ local sources = {
 	formatting.prettierd,
 	formatting.stylua,
 	formatting.uncrustify,
-	formatting.clang_format,
+	-- formatting.clang_format.with({
+ --    extra_args = {"--style='{IndentWidth: 4}'"},
+ --  }),
 	formatting.rustfmt,
 }
 

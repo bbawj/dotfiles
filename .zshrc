@@ -1,8 +1,9 @@
+setxkbmap us
+zstyle :omz:plugins:ssh-agent identities id_ed25519 
 # confirmations, etc.) must go above this block; everything else may go below.
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
-
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
@@ -75,7 +76,6 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-zstyle :omz:plugins:ssh-agent identities id_ed25519 
 plugins=(git zsh-autosuggestions vi-mode tmux ssh-agent)
 ZSH_TMUX_AUTOSTART=true
 source $ZSH/oh-my-zsh.sh
@@ -88,6 +88,8 @@ source $ZSH/oh-my-zsh.sh
 # export LANG=en_US.UTF-8
 
 # Preferred editor for local and remote sessions
+export PATH="$PATH:/opt/nvim/bin"
+export PATH="$PATH:/opt/intellij/bin"
 export EDITOR='nvim'
 export VISUAL='nvim'
 # if [[ -n $SSH_CONNECTION ]]; then
@@ -128,6 +130,9 @@ export NVM_DIR="$HOME/.nvm"
 export GPG_TTY=$(tty)
 
 #fzf options
+source /usr/share/doc/fzf/examples/key-bindings.zsh
+source /usr/share/doc/fzf/examples/completion.zsh
+
 export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border'
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
@@ -140,16 +145,20 @@ export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export PATH="$PATH:$HOME/.dotnet/tools/"
 
 #Path to Android SDK
-export ANDROID_HOME=$HOME/Android
-export PATH="$ANDROID_HOME/emulator:$ANDROID_HOME/tools:$ANDROID_HOME/tools/bin:$ANDROID_HOME/cmdline-tools/latest:$ANDROID_HOME/cmdline-tools/latest/bin:$ANDROID_HOME/platform-tools:$PATH"
-export WSL_HOST=$(tail -1 /etc/resolv.conf | cut -d' ' -f2)
-export ADB_SERVER_SOCKET=tcp:$WSL_HOST:5037
-export ADB_TRACE=adb
-export EXPO_DEBUG=1
-export ANDROID_SERIAL=emulator-5554
-export REACT_NATIVE_PACKAGER_HOSTNAME=$(ip addr show eth0 | grep -oP '(?<=inet\s)\d+(\.\d+){3}')
+# export ANDROID_HOME=$HOME/Android
+# export PATH="$ANDROID_HOME/emulator:$ANDROID_HOME/tools:$ANDROID_HOME/tools/bin:$ANDROID_HOME/cmdline-tools/latest:$ANDROID_HOME/cmdline-tools/latest/bin:$ANDROID_HOME/platform-tools:$PATH"
+# export WSL_HOST=$(tail -1 /etc/resolv.conf | cut -d' ' -f2)
+# export ADB_SERVER_SOCKET=tcp:$WSL_HOST:5037
+# export ADB_TRACE=adb
+# export EXPO_DEBUG=1
+# export ANDROID_SERIAL=emulator-5554
 
 export PATH="$PATH:$HOME/.nvm/versions/node/v12.20.0/lib/node_modules/@angular/language-server"
+export PATH="$PATH:/opt"
+export PATH="$PATH:/opt/platform-tools"
+export PATH="$PATH:/opt/android-6.0"
+export PATH="$PATH:/usr/local/go/bin"
+export PATH="$PATH:~/i3-battery-popup/i3-battery-popup"
 
 # Generated for envman. Do not edit.
 [ -s "$HOME/.config/envman/load.sh" ] && source "$HOME/.config/envman/load.sh"
@@ -157,7 +166,26 @@ export PATH="$PATH:$HOME/.nvm/versions/node/v12.20.0/lib/node_modules/@angular/l
 # Zoxide
 eval "$(zoxide init zsh)"
 
-# set DISPLAY to use X terminal in WSL
-# in WSL2 the localhost and network interfaces are not the same than windows
-export DISPLAY=$(cd /mnt/c && route.exe print | grep 0.0.0.0 | head -1 | awk '{print $4}'):0.0
-export BROWSER='/mnt/c/Program Files (x86)/Google/Chrome/Application/chrome.exe'
+export ZEPHYR_BASE="~/projects/fyp/zephyrproject/zephyr"
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+# __conda_setup="$('/home/bawj/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+# if [ $? -eq 0 ]; then
+#     eval "$__conda_setup"
+# else
+#     if [ -f "/home/bawj/miniconda3/etc/profile.d/conda.sh" ]; then
+#         . "/home/bawj/miniconda3/etc/profile.d/conda.sh"
+#     else
+#         export PATH="/home/bawj/miniconda3/bin:$PATH"
+#     fi
+# fi
+# unset __conda_setup
+# <<< conda initialize <<<
+
+export PATH="$PATH:/home/bawj/emsdk"
+export PATH="$PATH:/home/bawj/emsdk/upstream/emscripten"
+
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="$HOME/.sdkman"
+[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"

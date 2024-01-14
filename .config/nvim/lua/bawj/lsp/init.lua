@@ -15,8 +15,10 @@ local servers = {
 	"gopls",
 	"clangd",
   "rust_analyzer",
-  "tsserver"
-	-- "jdtls",
+  "tsserver",
+  "kotlin_language_server",
+	"jdtls",
+	"ocamllsp",
 }
 require("mason").setup()
 
@@ -53,10 +55,10 @@ vim.api.nvim_set_keymap("n", "<space>q", "<cmd>lua vim.diagnostic.setloclist()<C
 
 local lsp_formatting = function(bufnr)
 	vim.lsp.buf.format({
-		filter = function(client)
-			-- apply whatever logic you want (in this example, we'll only use null-ls)
-			return client.name == "null-ls"
-		end,
+		-- filter = function(client)
+		-- 	-- apply whatever logic you want (in this example, we'll only use null-ls)
+		-- 	return client.name == "efm"
+		-- end,
 		bufnr = bufnr,
 	})
 end
@@ -98,7 +100,7 @@ local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 
-require("bawj.lsp.null-ls").setup(on_attach)
+-- require("bawj.lsp.null-ls").setup(on_attach)
 
 for _, lsp in ipairs(servers) do
 	local custom_cmd = {}
@@ -117,6 +119,18 @@ for _, lsp in ipairs(servers) do
 			capabilities = capabilities,
 			filetypes = { "html", "typescriptreact", "javascriptreact", "css", "sass", "scss", "less" },
 		})
+  elseif lsp == "rust_analyzer" then
+		nvim_lsp[lsp].setup({
+			capabilities = capabilities,
+			on_attach = on_attach,
+      settings = {
+        ["rust-analyzer"] = {
+          cargo = {
+            allFeatures = true,
+          },
+        },
+      },
+		})
 	elseif next(custom_cmd) == nil then
 		nvim_lsp[lsp].setup({
 			capabilities = capabilities,
@@ -134,32 +148,19 @@ for _, lsp in ipairs(servers) do
 	end
 end
 
+-- require "lspconfig".efm.setup {
+--     init_options = {documentFormatting = true},
+--     settings = {
+--         rootMarkers = {".git/"},
+--         languages = {
+--             c = {
+--                 uncrustify
+--             }
+--         }
+--     }
+-- }
 local ngls_location = ""
 
 if default_node_modules ~= nil then
 	ngls_location = default_node_modules .. "/@angular/language-server/index.js"
 end
-
--- local ngls_cmd = {
--- 	-- "ngserver",
--- 	"node",
--- 	ngls_location,
--- 	"--stdio",
--- 	"--tsProbeLocations",
--- 	default_node_modules,
--- 	-- "/home/bawj/.nvm/versions/node/v16.15.0/lib/node_modules",
--- 	"--ngProbeLocations",
--- 	default_node_modules,
--- 	-- "/home/bawj/.nvm/versions/node/v16.15.0/lib/node_modules",
--- 	"--includeCompletionsWithSnippetText",
--- 	"--includeAutomaticOptionalChainCompletions",
--- }
---
--- nvim_lsp.angularls.setup({
--- 	cmd = ngls_cmd,
--- 	on_attach = on_attach,
--- 	-- root_dir = util.root_pattern("angular.json"),
--- 	on_new_config = function(new_config)
--- 		new_config.cmd = ngls_cmd
--- 	end,
--- })

@@ -25,7 +25,6 @@ require("nvim-tree").setup({
 		width = 30,
     number = true,
     relativenumber = true,
-		hide_root_folder = false,
 		side = "left",
 		signcolumn = "yes",
 		},

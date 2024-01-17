@@ -121,7 +121,7 @@ INSERT_MODE_INDICATOR="%F{yellow}+%f"
 
 # Turn off error bells
 unsetopt BEEP
-alias config='/usr/bin/git --git-dir=/home/bawj/.cfg/ --work-tree=/home/bawj'
+alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm

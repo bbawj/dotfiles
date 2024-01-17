@@ -16,7 +16,7 @@ return require('packer').startup(function(use)
   use 'wbthomason/packer.nvim'
 
   use {
-    'nvim-telescope/telescope.nvim', tag = '0.1.0',
+    'nvim-telescope/telescope.nvim', tag = '0.1.4',
     -- or                            , branch = '0.1.x',
     requires = { {'nvim-lua/plenary.nvim'},
       {'nvim-telescope/telescope-fzf-native.nvim', run = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build' }
@@ -83,7 +83,10 @@ return require('packer').startup(function(use)
 
   -- " Comments
   use 'numToStr/Comment.nvim'
-  use 'JoosepAlviste/nvim-ts-context-commentstring'
+  use { 'JoosepAlviste/nvim-ts-context-commentstring', config = function ()
+    vim.g.skip_ts_context_commentstring_module = true
+  end
+  }
 
   -- " Debugger
   use 'mfussenegger/nvim-dap'

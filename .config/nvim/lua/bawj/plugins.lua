@@ -19,8 +19,12 @@ return require('packer').startup(function(use)
     'nvim-telescope/telescope.nvim', tag = '0.1.4',
     -- or                            , branch = '0.1.x',
     requires = { {'nvim-lua/plenary.nvim'},
-      {'nvim-telescope/telescope-fzf-native.nvim', run = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build' }
-    }
+      {'nvim-telescope/telescope-fzf-native.nvim', run = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build' },
+      { "nvim-telescope/telescope-live-grep-args.nvim" },
+    },
+    config = function()
+      require("telescope").load_extension("live_grep_args")
+    end
   }
 
   use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }

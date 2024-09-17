@@ -7,28 +7,28 @@ local function my_on_attach(bufnr)
 
   -- OR use all default mappings
   api.config.mappings.default_on_attach(bufnr)
-  vim.keymap.set('n', 'l', api.node.open.edit,          opts('Edit'))
+  vim.keymap.set('n', 'l', api.node.open.edit, opts('Edit'))
 end
 require("nvim-tree").setup({
-	diagnostics = {
-		enable = true,
-		show_on_dirs = true,
-		icons = {
-			hint = "",
-			info = "",
-			warning = "",
-			error = "",
-		},
-	},
-	view = {
-		adaptive_size = false,
-		width = 30,
+  diagnostics = {
+    enable = true,
+    show_on_dirs = true,
+    icons = {
+      hint = "",
+      info = "",
+      warning = "",
+      error = "",
+    },
+  },
+  view = {
+    adaptive_size = false,
+    width = 30,
     number = true,
     relativenumber = true,
-		side = "left",
-		signcolumn = "yes",
-		},
-    on_attach = my_on_attach,
+    side = "left",
+    signcolumn = "yes",
+  },
+  on_attach = my_on_attach,
 })
 
 local Remap = require("bawj.keymap")

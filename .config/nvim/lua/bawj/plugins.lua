@@ -36,19 +36,19 @@ return require('packer').startup(function(use)
   use 'nvim-treesitter/nvim-treesitter-context'
 
   --themes
-  use {'EdenEast/nightfox.nvim', config =   function ()
+  use { 'EdenEast/nightfox.nvim', config = function()
     require('nightfox').setup({
       options = {
         transparent = true,
       },
     })
     vim.cmd 'colorscheme nordfox'
-  end}
+  end }
 
   -- " Status Lines
   use 'kyazdani42/nvim-web-devicons'
   use 'nvim-lualine/lualine.nvim'
-  use {'akinsho/bufferline.nvim', tag = "v2.*", requires = 'kyazdani42/nvim-web-devicons'}
+  use { 'akinsho/bufferline.nvim', tag = "v4.*", requires = 'kyazdani42/nvim-web-devicons' }
 
   -- " Misc
   use 'http://github.com/tpope/vim-surround'
@@ -64,9 +64,7 @@ return require('packer').startup(function(use)
 
   -- " LSP related
   use 'williamboman/mason.nvim'
-  use 'williamboman/nvim-lsp-installer'
   use 'neovim/nvim-lspconfig'
-  use 'jose-elias-alvarez/null-ls.nvim'
   use 'folke/trouble.nvim'
 
   -- " Completion

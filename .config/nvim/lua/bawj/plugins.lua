@@ -1,8 +1,8 @@
 local ensure_packer = function()
   local fn = vim.fn
-  local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
+  local install_path = fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
   if fn.empty(fn.glob(install_path)) > 0 then
-    fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
+    fn.system({ 'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path })
     vim.cmd [[packadd packer.nvim]]
     return true
   end
@@ -18,8 +18,8 @@ return require('packer').startup(function(use)
   use {
     'nvim-telescope/telescope.nvim', tag = '0.1.4',
     -- or                            , branch = '0.1.x',
-    requires = { {'nvim-lua/plenary.nvim'},
-      {'nvim-telescope/telescope-fzf-native.nvim', run = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build' },
+    requires = { { 'nvim-lua/plenary.nvim' },
+      { 'nvim-telescope/telescope-fzf-native.nvim',    run = 'make' },
       { "nvim-telescope/telescope-live-grep-args.nvim" },
     },
     config = function()
@@ -61,6 +61,32 @@ return require('packer').startup(function(use)
 
   -- " File explorer
   use 'kyazdani42/nvim-tree.lua'
+  use({
+    "stevearc/oil.nvim",
+    config = function()
+      require("oil").setup({
+        keymaps = {
+          ["g?"] = "actions.show_help",
+          ["<CR>"] = "actions.select",
+          ["<C-q>"] = "actions.send_to_qflist",
+          ["<C-v>"] = { "actions.select", opts = { vertical = true }, desc = "Open the entry in a vertical split" },
+          ["<C-p>"] = "actions.preview",
+          ["<C-c>"] = "actions.close",
+          ["<C-l>"] = "actions.refresh",
+          ["-"] = "actions.parent",
+          ["_"] = "actions.open_cwd",
+          ["`"] = "actions.cd",
+          ["~"] = { "actions.cd", opts = { scope = "tab" }, desc = ":tcd to the current oil directory", mode = "n" },
+          ["gs"] = "actions.change_sort",
+          ["gx"] = "actions.open_external",
+          ["g."] = "actions.toggle_hidden",
+          ["g\\"] = "actions.toggle_trash",
+        },
+      })
+      vim.keymap.set("n", "-", "<CMD>Oil<CR>")
+      vim.keymap.set("n", "<space>-", require("oil").toggle_float)
+    end,
+  })
 
   -- " LSP related
   use 'williamboman/mason.nvim'
@@ -85,7 +111,7 @@ return require('packer').startup(function(use)
 
   -- " Comments
   use 'numToStr/Comment.nvim'
-  use { 'JoosepAlviste/nvim-ts-context-commentstring', config = function ()
+  use { 'JoosepAlviste/nvim-ts-context-commentstring', config = function()
     vim.g.skip_ts_context_commentstring_module = true
   end
   }
@@ -105,6 +131,6 @@ return require('packer').startup(function(use)
   use {
     "ThePrimeagen/harpoon",
     branch = "harpoon2",
-    requires = { {"nvim-lua/plenary.nvim"} }
+    requires = { { "nvim-lua/plenary.nvim" } }
   }
 end)

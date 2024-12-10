@@ -54,46 +54,47 @@ vim.api.nvim_set_keymap("n", "]d", "<cmd>lua vim.diagnostic.goto_next()<CR>", op
 vim.api.nvim_set_keymap("n", "<space>q", "<cmd>lua vim.diagnostic.setloclist()<CR>", opts)
 
 local lsp_formatting = function(bufnr)
-	vim.lsp.buf.format({
-		-- filter = function(client)
-		-- 	-- apply whatever logic you want (in this example, we'll only use null-ls)
-		-- 	return client.name == "efm"
-		-- end,
-		bufnr = bufnr,
-	})
+  vim.lsp.buf.format({
+    -- filter = function(client)
+    -- 	-- apply whatever logic you want (in this example, we'll only use null-ls)
+    -- 	return client.name == "efm"
+    -- end,
+    bufnr = bufnr,
+  })
 end
 local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
 
 local on_attach = function(client, bufnr)
-	local buf_opts = { noremap = true, silent = true, buffer = true }
+  local buf_opts = { noremap = true, silent = true, buffer = true }
 
-	-- See `:help vim.lsp.*` for documentation on any of the below functions
-	vim.keymap.set("n", "gD", vim.lsp.buf.declaration, buf_opts)
-	vim.keymap.set("n", "gd", vim.lsp.buf.definition, buf_opts)
-	vim.keymap.set("n", "<space>h", vim.lsp.buf.hover, buf_opts)
-	vim.keymap.set("n", "gi", vim.lsp.buf.implementation, buf_opts)
-	vim.keymap.set({ "n", "i" }, "<M-k>", vim.lsp.buf.signature_help, buf_opts)
-	vim.keymap.set("n", "<space>gd", vim.lsp.buf.type_definition, opts)
-	vim.keymap.set("n", "<space>ca", vim.lsp.buf.code_action, buf_opts)
-	vim.keymap.set("n", "<space>r", vim.lsp.buf.rename, buf_opts)
-	-- vim.keymap.set("n", "gr", vim.lsp.buf.references, buf_opts)
+  -- See `:help vim.lsp.*` for documentation on any of the below functions
+  vim.keymap.set("n", "gD", vim.lsp.buf.declaration, buf_opts)
+  vim.keymap.set("n", "gd", vim.lsp.buf.definition, buf_opts)
+  vim.keymap.set("n", "<space>h", vim.lsp.buf.hover, buf_opts)
+  vim.keymap.set("n", "gi", vim.lsp.buf.implementation, buf_opts)
+  vim.keymap.set({ "n", "i" }, "<M-k>", vim.lsp.buf.signature_help, buf_opts)
+  vim.keymap.set("n", "<space>gd", vim.lsp.buf.type_definition, opts)
+  vim.keymap.set("n", "<space>ca", vim.lsp.buf.code_action, buf_opts)
+  vim.keymap.set("n", "<space>r", vim.lsp.buf.rename, buf_opts)
+  vim.keymap.set("v", "<space>f", vim.lsp.buf.format, buf_opts)
+  -- vim.keymap.set("n", "gr", vim.lsp.buf.references, buf_opts)
 
-	if client.server_capabilities.document_highlight then
-		vim.api.nvim_command("autocmd CursorHold  <buffer> lua vim.lsp.buf.document_highlight()")
-		vim.api.nvim_command("autocmd CursorHoldI <buffer> lua vim.lsp.buf.document_highlight()")
-		vim.api.nvim_command("autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()")
-	end
-	-- formatting
-	if client.supports_method("textDocument/formatting") then
-		vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
-		vim.api.nvim_create_autocmd("BufWritePre", {
-			group = augroup,
-			buffer = bufnr,
-			callback = function()
-				lsp_formatting(bufnr)
-			end,
-		})
-	end
+  if client.server_capabilities.document_highlight then
+    vim.api.nvim_command("autocmd CursorHold  <buffer> lua vim.lsp.buf.document_highlight()")
+    vim.api.nvim_command("autocmd CursorHoldI <buffer> lua vim.lsp.buf.document_highlight()")
+    vim.api.nvim_command("autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()")
+  end
+  -- formatting
+  if client.supports_method("textDocument/formatting") then
+    vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
+    vim.api.nvim_create_autocmd("BufWritePre", {
+      group = augroup,
+      buffer = bufnr,
+      callback = function()
+        lsp_formatting(bufnr)
+      end,
+    })
+  end
 end
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()

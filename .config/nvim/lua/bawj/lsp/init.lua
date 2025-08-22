@@ -3,22 +3,6 @@ local uv = vim.loop
 local nvim_lsp = require("lspconfig")
 local util = require("lspconfig.util")
 local servers = {
-	"eslint",
-	"emmet_ls",
-	"angularls",
-	"tsserver",
-	"csharp_ls",
-	"html",
-	"cssls",
-	"lua_ls",
-	"pyright",
-	"gopls",
-	"clangd",
-  "rust_analyzer",
-  "tsserver",
-  "kotlin_language_server",
-	"jdtls",
-	"ocamllsp",
 }
 require("mason").setup()
 

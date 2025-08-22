@@ -52,12 +52,7 @@ return require('packer').startup(function(use)
 
   -- " Misc
   use 'http://github.com/tpope/vim-surround'
-  -- use {
-  --   "windwp/nvim-autopairs",
-  --   config = function() require("nvim-autopairs").setup {} end
-  -- }
   use 'windwp/nvim-ts-autotag'
-  use { 'j-hui/fidget.nvim', tag = 'legacy' }
 
   -- " File explorer
   use 'kyazdani42/nvim-tree.lua'

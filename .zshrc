@@ -22,6 +22,7 @@ SAVEHIST=10000000
 HISTORY_IGNORE="(ls|cd|pwd|exit|cd)*"
 # https://zsh.sourceforge.io/Doc/Release/Options.html (16.2.4 History)
 
+setopt autocd
 setopt EXTENDED_HISTORY      # Write the history file in the ':start:elapsed;command' format.
 setopt INC_APPEND_HISTORY    # Write to the history file immediately, not when the shell exits.
 setopt SHARE_HISTORY         # Share history between all sessions.
